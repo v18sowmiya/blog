@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Normalizing anexity in modern</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@500&display=swap');
+
+  /* Floating Bubbles */
+  .floating-bubbles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Prevent bubbles from blocking other content */
+        z-index: 9999; /* Keep bubbles on top */
+        overflow: hidden;
+    }
+
+    /* Bubble Styles */
+    .bubble {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(221, 221, 221, 0.8); /* Light white bubbles */
+        border-radius: 50%;
+        opacity: 0.7;
+        pointer-events: none;
+        animation: bubble 10s infinite linear;
+    }
+
+    /* Bubble Movement Animation */
+    @keyframes bubble {
+        0% {
+            transform: translateY(100vh) scale(0.5); /* Start from bottom */
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) scale(1.5); /* Move upwards and grow */
+            opacity: 0;
+        }
+    }
+
+    /* Set random positions and delays for each bubble */
+    .bubble:nth-child(1) {
+        left: 10%;
+        animation-duration: 12s;
+        animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+        left: 25%;
+        animation-duration: 14s;
+        animation-delay: 2s;
+    }
+
+    .bubble:nth-child(3) {
+        left: 40%;
+        animation-duration: 16s;
+        animation-delay: 4s;
+    }
+
+    .bubble:nth-child(4) {
+        left: 55%;
+        animation-duration: 18s;
+        animation-delay: 6s;
+    }
+
+    .bubble:nth-child(5) {
+        left: 70%;
+        animation-duration: 20s;
+        animation-delay: 8s;
+    }
+
+    .bubble:nth-child(6) {
+        left: 85%;
+        animation-duration: 22s;
+        animation-delay: 10s;
+    }
+
+    /* Reset and Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: rgba(144, 238, 144, 0.3);
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+    }
+
+    .blog-list {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      padding-left: 20px;
+    }
+
+    .blog-list li {
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 1060px;
+      margin: 15px auto;
+      padding: 15px;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header .post-id {
+      font-size: 10px;
+      font-weight: bold;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    .header hr {
+      border: none;
+      border-top: 3px solid rgb(122, 118, 118);
+      width: 80%;
+      margin: 10px auto;
+    }
+
+    .header h1 {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 550;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    /* Content Section */
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 35px;
+      margin-bottom: 30px;
+    }
+
+    .content .text {
+      flex: 1;
+    }
+
+    .content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 550;
+      color: #333;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #00b579;
+    }
+
+    .content h2 {
+      font-size: 1.8rem;
+    }
+
+    .content h3 {
+      font-size: 1.rem;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      margin: 0 0 15px 0;
+    }
+
+    .main-image img {
+      display: block;
+      border-radius: 1.5rem;
+      height: 27rem;
+    }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #999;
+    }
+
+
+    /* Responsive Design */
+
+/* General Reset for Smaller Screens */
+@media screen and (max-width: 1024px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .content .text {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+/* Adjustments for Tablets */
+@media screen and (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem;
+    padding: 0 10px;
+  }
+
+  .header .author-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .author-info img {
+    margin: 0 0 10px 0;
+  }
+
+  .content .text h2 {
+    font-size: 1.5rem;
+  }
+
+  .content .text p {
+    font-size: 1rem;
+  }
+
+  .content img {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+
+@media (max-width: 508px) {
+  .responsive-image {
+    display: none;
+  }
+}
+
+/* Adjustments for Mobile Phones */
+@media screen and (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header .author-info {
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0 10px;
+  }
+
+  .content .text h2 {
+    font-size: 1.2rem;
+  }
+
+  .content .text p {
+    font-size: 0.9rem;
+  }
+
+  .blog-list li {
+    font-size: 0.9rem;
+  }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .floating-bubbles {
+    display: none; /* Hide bubbles on small screens to avoid distraction */
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="floating-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header class="header" style="
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(144, 238, 144, 0.5), rgba(173, 216, 230, 0.5)); /* Soft green to light blue gradient */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 25px 25px; /* Rounded bottom edges for a smooth look */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle bottom border */
+  backdrop-filter: blur(8px); /* Enhanced blur effect for modernity */
+">
+
+<div style="display: flex; gap: 1rem;">
+  <!-- Home Icon -->
+  <a href="./index.html" title="Home" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M484-80q-84 0-157.5-32t-128-86.5Q144-253 112-326.5T80-484q0-146 93-257.5T410-880q-18 99 11 193.5T521-521q71 71 165.5 100T880-410q-26 144-138 237T484-80Zm0-80q88 0 163-44t118-121q-86-8-163-43.5T464-465q-61-61-97-138t-43-163q-77 43-120.5 118.5T160-484q0 135 94.5 229.5T484-160Zm-20-305Z"/></svg>
+  </a>
+  
+  <!-- List Icon -->
+  <a href="./list.html" title="List" style="text-decoration: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M360-200v-80h480v80H360Zm0-240v-80h480v80H360Zm0-240v-80h480v80H360ZM200-160q-33 0-56.5-23.5T120-240q0-33 23.5-56.5T200-320q33 0 56.5 23.5T280-240q0 33-23.5 56.5T200-160Zm0-240q-33 0-56.5-23.5T120-480q0-33 23.5-56.5T200-560q33 0 56.5 23.5T280-480q0 33-23.5 56.5T200-400Zm0-240q-33 0-56.5-23.5T120-720q0-33 23.5-56.5T200-800q33 0 56.5 23.5T280-720q0 33-23.5 56.5T200-640Z"/></svg>
+  </a>
+</div>
+  <!-- Title -->
+  <h1 style="
+    font-family: 'Arial', sans-serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  ">
+    talktomoon 🌙
+  </h1>
+
+  <!-- User Icon Section -->
+  <div class="user-icon-container" style="
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  ">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#333">
+      <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4.411 0-8 3.589-8 8h2c0-3.313 2.687-6 6-6s6 2.687 6 6h2c0-4.411-3.589-8-8-8z"/>
+    </svg>
+
+    <!-- Hover Tooltip -->
+    <div class="tooltip" style="
+      position: absolute;
+      top: 120%;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      color: #333;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+      white-space: nowrap;
+    ">
+    <h3>Author Info</h3>
+      <!-- Profile Picture -->
+      <img src="./img/author_img.jpg" 
+        alt="Sowmiya V" style="
+          width: 50px; 
+          height: 50px; 
+          object-fit: cover;
+          border-radius: 50%; 
+          border: 2px solid #00b579;
+          margin-bottom: 0.5rem;">
+      
+      <!-- Author Details -->
+      <div style="text-align: center; margin-bottom: 0.5rem;">
+        <strong style="font-size: 1rem; color: #222;">Sowmiya V</strong>
+        <a href="mailto:vsowmi7@gmail.com" style="
+          text-decoration: none; 
+          color: #555; 
+          font-size: 0.8rem; 
+          display: block; 
+          margin-top: 0.2rem;">
+          vsowmi7@gmail.com
+        </a>
+      </div>
+
+      <!-- LinkedIn Icon -->
+      <a href="https://www.linkedin.com/in/sowmiya-v-31212a264" target="_blank" style="
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+        background-color: #0077b5; 
+        width: 30px; 
+        height: 30px; 
+        border-radius: 50%; 
+        text-decoration: none; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" 
+          alt="LinkedIn" style="
+            width: 14px; 
+            height: 14px; 
+            filter: brightness(100%) contrast(100%);">
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Add Hover Effect -->
+<script>
+  const userIconContainer = document.querySelector('.user-icon-container');
+  const tooltip = document.querySelector('.tooltip');
+
+  userIconContainer.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+
+  userIconContainer.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+</script>
+
+  <!-- Header -->
+  <div class="header" style="position: sticky;">
+    <h1 style="
+      font-size: 2rem; 
+      text-align: center; 
+      margin: 1rem 0; 
+      line-height: 1.4; 
+      color: #333;">
+      Breaking the Stigma: Normalizing Anxiety in Modern Society
+    </h1>
+    <hr>
+  
+      <!-- Date and Reading Time -->
+      <div style="text-align: center;">
+        <div style="color: #777; font-size: 0.8rem;">
+          January 5, 2025
+        </div>
+        <div style="color: #777; font-size: 0.8rem;">
+          30 min read
+        </div>
+      </div>
+    </div>
+  </div><!-- Main Container -->
+  <div class="container" style="width: 100%; display: flex; justify-content: center;">
+    <!-- Content Sections -->
+    <div class="content" style="width: 100%;">
+      <div class="images" style="display: block;">
+        <img 
+          src="./img/anexity/main.jpg" 
+          alt="Image 3" 
+          style="
+            width: 65rem; 
+            height: 34rem; 
+            border-radius: 2rem; 
+            margin-left: 2rem; 
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);"
+          class="responsive-image">
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <div class="container">
+    <!-- Content Sections -->
+    <div class="content">
+      <div class="images">
+        <img 
+          src="./img/anexity/symp_of_anxiety.jpg" 
+          alt="Image 3" 
+          style="width: 23rem; height: 35rem; border-radius: 2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);margin-top: 1rem;">
+      </div>
+      <div class="text">
+        <h2>Introduction</h2>
+        <p>In today’s fast-paced world, anxiety has become a common experience for many. Yet, despite its prevalence, it remains a taboo topic, often misunderstood and stigmatized. People struggling with anxiety are frequently labeled as weak or overly sensitive, making it harder for them to seek support. This blog aims to shed light on anxiety, break the stigma surrounding it, and encourage open conversations about mental health.</p>
+        <h2>Understanding Anxiety</h2>
+        <p>Anxiety is more than just feeling nervous before a big event. It can manifest as excessive worry, restlessness, difficulty concentrating, or even physical symptoms like headaches and fatigue. While occasional anxiety is a normal part of life, persistent and intense feelings may indicate an anxiety disorder that requires attention and care.</p>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="content">
+      <div class="text">
+        <h2>Common Types of Anxiety Disorders</h2>
+        <ul class="blog-list">
+          <li><strong>Generalized Anxiety Disorder (GAD):</strong> Constant, uncontrollable worry about everyday situations.</li>
+          <li><strong>Panic Disorder:</strong> Sudden, intense episodes of fear or discomfort.</li>
+          <li><strong>Social Anxiety Disorder:</strong> Fear of being judged or embarrassed in social situations.</li>
+          <li><strong>Phobias:</strong> Intense fear of specific objects or situations.</li>
+        </ul>        
+      </div>
+      <div class="main-image">
+        <img src="./img/anexity/types_of_anxity.jpg" alt="Main Image" 
+        style="margin-top:2rem; border-radius: 2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="content">
+      <div class="text">
+        <h2>Why Is Anxiety Stigmatized?</h2>
+        <ol class="blog-list">
+          <li>
+            <strong>Lack of Awareness:</strong>  
+            Many people mistakenly view anxiety as a personality flaw rather than recognizing it as a legitimate mental health condition. This misunderstanding minimizes the seriousness of the issue and discourages proper support.  
+          </li>
+          <li>
+            <strong>Cultural Pressure:</strong>  
+            Society often emphasizes strength, resilience, and independence, discouraging emotional vulnerability. Individuals struggling with anxiety may feel compelled to hide their feelings to avoid appearing weak or incapable.  
+          </li>
+          <li>
+            <strong>Fear of Judgment:</strong>  
+            The fear of criticism, discrimination, or exclusion prevents individuals from opening up about their struggles. This hesitation creates a cycle of isolation and untreated symptoms, exacerbating mental health challenges.  
+          </li>
+        </ol>
+        <p>This stigma prevents individuals from seeking help, worsening their mental health over time.</p>
+      </div>
+      <div class="image-container">
+        <img src="./img/anexity/how_to_combat.jpg" alt="Main Image"
+          style="width: 65rem;height: 35rem;border-radius: 2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="text">
+        <h2>How to help yourself</h2>
+        <ul class="blog-list">
+          <li>
+            <strong>Be Empathetic:</strong>  
+              Offer non-judgmental support to friends or 
+              family dealing with anxiety.  
+          </li>
+          <li>
+            <strong>Challenge Stigma:</strong>  
+              Speak up against negative stereotypes and 
+              misinformation about mental health.  
+          </li>
+          <li>
+            <strong>Spread Awareness:</strong>  
+              Use social media platforms to share facts 
+              and personal stories to normalize discussions about anxiety.  
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="text">
+        <h2>The Importance of Normalizing Anxiety </h2>
+        <p>Normalizing anxiety creates a supportive environment where people 
+          feel safe to share their struggles and seek treatment. </p>
+        <p>When anxiety is seen as a manageable condition rather than a 
+          weakness, more people feel empowered to prioritize their mental 
+          well-being. </p>
+          <br>
+        <p>In today's fast-paced and high-pressure society, normalizing anxiety is 
+          more crucial than ever. The rise in mental health issues due to work 
+          stress, social comparisons, and economic challenges highlights the 
+          need for a compassionate and supportive culture. Normalizing 
+          anxiety:  </p>
+          <ul class="blog-list">
+            <li>
+              <strong>Reduces Isolation:</strong>  
+                Offer non-judgmental support to friends or 
+                family dealing with anxiety.  
+            </li>
+            <li>
+              <strong>Promotes Early Intervention:</strong>  
+                Speak up against negative stereotypes and 
+                misinformation about mental health.  
+            </li>
+            <li>
+              <strong>Improves Workplace Culture:</strong>  
+              Supports mental health 
+              initiatives in professional settings, leading to healthier, more 
+              productive employees.   
+            </li>
+            <li>
+              <strong>Empowers Youth:</strong>  
+              Educates younger generations about mental 
+              health, enabling them to develop coping mechanisms and 
+              resilience.    
+            </li>
+          </ul>
+          <p>
+            By addressing anxiety openly, society can cultivate a healthier 
+            mindset and reduce the long-term impacts of untreated mental health 
+            conditions. 
+          </p>
+      </div>
+
+
+    </div>
+
+    <div class="content" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 13rem; margin-bottom: 40px;">
+      <div class="image-container" style="flex: 1; max-width: 350px; min-width: 250px;margin-top: 3rem;">
+        <img src="./img/anexity/coping_sad.jpg" alt="Main Image" style="height: 65rem; width: 28rem; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); object-fit:fill">
+      </div>
+      <div class="text" style="flex: 2; font-family: 'Open Sans', sans-serif; font-size: 1.2rem; line-height: 1.8; color: #555;">
+        <h2 style="font-family: 'Hanken Grotesk', sans-serif; font-size: 2rem; color: #222; margin-bottom: 15px;">How to Normalize Anxiety</h2>
+        <h3 style="font-family: 'Open Sans', sans-serif; font-size: 1.5rem; color: #333; margin-top: 20px;">You Are Not Alone</h3>
+        <p style="margin-top: 4px;">
+          If you're struggling with your mental health, know that you're not 
+          alone. Many people face similar challenges, and there is help 
+          available. You might feel isolated, but there are people who care 
+          about you and want to support you.
+        </p>
+        <h3 style="font-family: 'Open Sans', sans-serif; font-size: 1.5rem; color: #333; margin-top: 20px;">Break the Silence</h3>
+        <p style="margin-top: 4px;">
+          Don't be afraid to talk about your feelings. Share your story with 
+          someone you trust, and ask for help when you need it. Your voice 
+          matters, and your story can inspire others. Breaking the silence 
+          can be the first step towards healing.
+        </p>
+        <h3 style="font-family: 'Open Sans', sans-serif; font-size: 1.5rem; color: #333; margin-top: 20px;">You Are Stronger Than You Think</h3>
+        <p style="margin-top: 4px;">
+          Your illness does not define you - you are a unique individual with 
+          strengths and talents. Recovery is possible with the right support 
+          and resources, and you deserve to ask for help. You've survived 
+          every difficult moment in your life so far, and you can continue to 
+          do so.
+        </p>
+        <h3 style="font-family: 'Open Sans', sans-serif; font-size: 1.5rem; color: #333; margin-top: 20px;">Keep Moving Forward</h3>
+        <p style="margin-top: 4px;">
+          As you move forward, remember that every small step counts. 
+          Celebrate your successes, no matter how small they may seem. 
+          Take care of yourself by engaging in self-care activities that bring 
+          you joy and relaxation. Break down larger goals into smaller, 
+          achievable tasks, and practice self-compassion by treating 
+          yourself with kindness and understanding.
+        </p>
+      </div>
+    </div>
+    
+    
+    
+
+    <div class="content">
+      <h2>Conclusion</h2>
+      <p>Anxiety is a natural response to stress, but it shouldn’t define 
+        anyone’s worth or capability. It's time to break the stigma 
+        surrounding mental health and create a culture of understanding, 
+        acceptance, and support. Mental health should be prioritized like 
+        physical health, recognizing that taking care of our minds is just 
+        as vital as taking care of our bodies. Seeking help should be a 
+        sign of strength, not weakness. Let's break the silence and 
+        challenge the stigma. Together, we can create a supportive 
+        community where everyone feels empowered to speak openly 
+        about their struggles. It's time to prioritize mental health and 
+        make a change. By doing so, we can foster a society that values 
+        compassion, empathy, and kindness. </p>
+    </div>
+
+    
+  </div>
+
+  <!-- Footer -->
+  <div class="footer" style="position: relative;bottom: 2rem;">
+    @talktomoon 🌙
+  </div>
+
+</body>
+</html>

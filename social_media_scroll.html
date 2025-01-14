@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Normalizing anexity in modern</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@500&display=swap');
+
+  /* Floating Bubbles */
+  .floating-bubbles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Prevent bubbles from blocking other content */
+        z-index: 9999; /* Keep bubbles on top */
+        overflow: hidden;
+    }
+
+    /* Bubble Styles */
+    .bubble {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(221, 221, 221, 0.8); /* Light white bubbles */
+        border-radius: 50%;
+        opacity: 0.7;
+        pointer-events: none;
+        animation: bubble 10s infinite linear;
+    }
+
+    /* Bubble Movement Animation */
+    @keyframes bubble {
+        0% {
+            transform: translateY(100vh) scale(0.5); /* Start from bottom */
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) scale(1.5); /* Move upwards and grow */
+            opacity: 0;
+        }
+    }
+
+    /* Set random positions and delays for each bubble */
+    .bubble:nth-child(1) {
+        left: 10%;
+        animation-duration: 12s;
+        animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+        left: 25%;
+        animation-duration: 14s;
+        animation-delay: 2s;
+    }
+
+    .bubble:nth-child(3) {
+        left: 40%;
+        animation-duration: 16s;
+        animation-delay: 4s;
+    }
+
+    .bubble:nth-child(4) {
+        left: 55%;
+        animation-duration: 18s;
+        animation-delay: 6s;
+    }
+
+    .bubble:nth-child(5) {
+        left: 70%;
+        animation-duration: 20s;
+        animation-delay: 8s;
+    }
+
+    .bubble:nth-child(6) {
+        left: 85%;
+        animation-duration: 22s;
+        animation-delay: 10s;
+    }
+
+    /* Reset and Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: rgba(144, 238, 144, 0.3);
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+    }
+
+    .blog-list {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      padding-left: 20px;
+    }
+
+    .blog-list li {
+      margin-bottom: 10px;
+    }
+
+    .container {
+      max-width: 1060px;
+      margin: 15px auto;
+      padding: 15px;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header span {
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header .post-id {
+      font-size: 10px;
+      font-weight: bold;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    .header hr {
+      border: none;
+      border-top: 3px solid rgb(122, 118, 118);
+      width: 80%;
+      margin: 10px auto;
+    }
+
+    .header h1 {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 550;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    /* Content Section */
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 35px;
+      margin-bottom: 30px;
+    }
+
+    .content .text {
+      flex: 1;
+    }
+
+    .content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 550;
+      color: #333;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #00b579;
+    }
+
+    .content h2 {
+      font-size: 1.8rem;
+    }
+
+    .content h3 {
+      font-size: 1.rem;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #555;
+      margin: 0 0 15px 0;
+    }
+
+    .main-image img {
+      display: block;
+      border-radius: 1.5rem;
+      height: 27rem;
+    }
+
+    /* Footer Section */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #999;
+    }
+
+
+    /* Responsive Design */
+
+/* General Reset for Smaller Screens */
+@media screen and (max-width: 1024px) {
+  .content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .content .text {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+/* Adjustments for Tablets */
+@media screen and (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem;
+    padding: 0 10px;
+  }
+
+  .header .author-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .author-info img {
+    margin: 0 0 10px 0;
+  }
+
+  .content .text h2 {
+    font-size: 1.5rem;
+  }
+
+  .content .text p {
+    font-size: 1rem;
+  }
+
+  .content img {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+
+@media (max-width: 508px) {
+  .responsive-image {
+    display: none;
+  }
+}
+
+/* Adjustments for Mobile Phones */
+@media screen and (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header .author-info {
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0 10px;
+  }
+
+  .content .text h2 {
+    font-size: 1.2rem;
+  }
+
+  .content .text p {
+    font-size: 0.9rem;
+  }
+
+  .blog-list li {
+    font-size: 0.9rem;
+  }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px auto;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .floating-bubbles {
+    display: none; /* Hide bubbles on small screens to avoid distraction */
+  }
+
+  .footer {
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="floating-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <header class="header" style="
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(144, 238, 144, 0.5), rgba(173, 216, 230, 0.5)); /* Soft green to light blue gradient */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 25px 25px; /* Rounded bottom edges for a smooth look */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle bottom border */
+  backdrop-filter: blur(8px); /* Enhanced blur effect for modernity */
+">
+
+<div style="display: flex; gap: 1rem;">
+  <!-- Home Icon -->
+  <a href="./index.html" title="Home" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M484-80q-84 0-157.5-32t-128-86.5Q144-253 112-326.5T80-484q0-146 93-257.5T410-880q-18 99 11 193.5T521-521q71 71 165.5 100T880-410q-26 144-138 237T484-80Zm0-80q88 0 163-44t118-121q-86-8-163-43.5T464-465q-61-61-97-138t-43-163q-77 43-120.5 118.5T160-484q0 135 94.5 229.5T484-160Zm-20-305Z"/></svg>
+  </a>
+  
+  <!-- List Icon -->
+  <a href="./list.html" title="List" style="text-decoration: none;">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M360-200v-80h480v80H360Zm0-240v-80h480v80H360Zm0-240v-80h480v80H360ZM200-160q-33 0-56.5-23.5T120-240q0-33 23.5-56.5T200-320q33 0 56.5 23.5T280-240q0 33-23.5 56.5T200-160Zm0-240q-33 0-56.5-23.5T120-480q0-33 23.5-56.5T200-560q33 0 56.5 23.5T280-480q0 33-23.5 56.5T200-400Zm0-240q-33 0-56.5-23.5T120-720q0-33 23.5-56.5T200-800q33 0 56.5 23.5T280-720q0 33-23.5 56.5T200-640Z"/></svg>
+  </a>
+</div>
+  <!-- Title -->
+  <h1 style="
+    font-family: 'Arial', sans-serif;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  ">
+    talktomoon 🌙
+  </h1>
+
+  <!-- User Icon Section -->
+  <div class="user-icon-container" style="
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  ">
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#333">
+      <path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5zm0 2c-4.411 0-8 3.589-8 8h2c0-3.313 2.687-6 6-6s6 2.687 6 6h2c0-4.411-3.589-8-8-8z"/>
+    </svg>
+
+    <!-- Hover Tooltip -->
+    <div class="tooltip" style="
+      position: absolute;
+      top: 120%;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      color: #333;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: none;
+      white-space: nowrap;
+    ">
+    <h3>Author Info</h3>
+      <!-- Profile Picture -->
+      <img src="./img/author_img.jpg" 
+        alt="Sowmiya V" style="
+          width: 50px; 
+          height: 50px; 
+          object-fit: cover;
+          border-radius: 50%; 
+          border: 2px solid #00b579;
+          margin-bottom: 0.5rem;">
+      
+      <!-- Author Details -->
+      <div style="text-align: center; margin-bottom: 0.5rem;">
+        <strong style="font-size: 1rem; color: #222;">Sowmiya V</strong>
+        <a href="mailto:vsowmi7@gmail.com" style="
+          text-decoration: none; 
+          color: #555; 
+          font-size: 0.8rem; 
+          display: block; 
+          margin-top: 0.2rem;">
+          vsowmi7@gmail.com
+        </a>
+      </div>
+
+      <!-- LinkedIn Icon -->
+      <a href="https://www.linkedin.com/in/sowmiya-v-31212a264" target="_blank" style="
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+        background-color: #0077b5; 
+        width: 30px; 
+        height: 30px; 
+        border-radius: 50%; 
+        text-decoration: none; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" 
+          alt="LinkedIn" style="
+            width: 14px; 
+            height: 14px; 
+            filter: brightness(100%) contrast(100%);">
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Add Hover Effect -->
+<script>
+  const userIconContainer = document.querySelector('.user-icon-container');
+  const tooltip = document.querySelector('.tooltip');
+
+  userIconContainer.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+
+  userIconContainer.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+</script>
+
+  <!-- Header -->
+  <div class="header" style="position: sticky;">
+    <h1 style="
+      font-size: 2rem; 
+      text-align: center; 
+      margin: 1rem 0; 
+      line-height: 1.4; 
+      color: #333;">
+      Scroll, Click, Repeat: Are Social Media Trends Controlling Our 
+      Lives?
+    </h1>
+    <hr>
+  
+      <!-- Date and Reading Time -->
+      <div style="text-align: center;">
+        <div style="color: #777; font-size: 0.8rem;">
+          January 10, 2025
+        </div>
+        <div style="color: #777; font-size: 0.8rem;">
+          30 min read
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <div class="container">
+    <!-- Content Sections -->
+    <div class="content">
+      <div class="images">
+        <img 
+          src="./img/social_media_scroll/reel.jpg" 
+          alt="Image 3" 
+          style="width: 23rem; height: 35rem; border-radius: 2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);margin-top: 1rem;">
+      </div>
+      <div class="text">
+        <h2>Introduction</h2>
+        <p>In today's digital era, social media has become an inseparable part of our lives. From dream 
+            vacations and flawless selfies to the portrayal of affluent lifestyles, our feeds often filled with 
+            picture-perfect moments. But how much of it reflects reality? This blog takes a closer look at 
+            the truth behind social media trends and their impact on youngsters.</p>
+        <h2>The Illusion of Perfection</h2>
+        <p>Scrolling through Instagram or Youtube, we often see influencers flaunting designer outfits, 
+            aesthetic homes, and dream vacations. While it may seem like they have it all, the reality is 
+            often different. Behind those posts are makeup and styling tricks that rely heavily on 
+            contouring, hairstyling, and accessories to create an effortlessly glamorous look. Professional 
+            makeup artists and stylists frequently work behind the scenes, making the results nearly 
+            impossible to replicate in daily life.</p>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="content">
+      <div class="text">
+        <p><strong>Perfect posing and angles  </strong>  
+            are also key elements that enhance visual appeal. Photos are 
+            carefully staged with specific poses and camera angles to make bodies look slimmer and 
+            features more defined. Hours are often spent capturing a single image, which gives the 
+            impression of natural beauty and confidence.
+            <strong>Social media highlights only the best 
+                moments,</strong>
+                creating highlight reels that hide struggles, failures, and imperfections. Influencers 
+                may showcase exotic vacations while dealing with personal struggles, crafting a misleading 
+                portrayal of happiness and success.
+        </p>
+        <p>
+            <strong>Photography promotions</strong>
+            add another layer of illusion. Many influencers collaborate with 
+            professional photographers to enhance their profiles, using expensive equipment and editing 
+            software to perfect every shot. These results often look cinematic, reinforcing the illusion of 
+            an unattainable lifestyle.
+            <strong> Product promotions </strong>
+            further amplify this effect. Influencers 
+            frequently showcase trendy products, ranging from luxury watches to fitness gear, creating a 
+            strong desire to own them. These promotions often exaggerate the benefits, making followers 
+            feel they need these items to fit in. 
+        </p>
+        <br>
+        <p>Trends related to healthy food and organic diets have also gained traction. Social media 
+            glorifies super foods, detox programs, and organic products as the only way to stay fit and 
+            healthy. While such foods have benefits, many marketed products are overpriced and 
+            impractical for everyday consumption. Organic skincare products are promoted as miracle 
+            solutions for flawless skin. Posts highlighting these items often fail to address the importance 
+            of consistency, genetics, or professional treatments, leaving viewers chasing unrealistic 
+            beauty goals. </p>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="content">
+      <div class="text">
+        <h2>The Pressure to Fit In</h2>
+        <p>Youngsters today often face immense pressure to meet unrealistic beauty and lifestyle 
+            standards. This can lead to low self-esteem as edited photos create insecurity. Many teenagers 
+            feel compelled to look like influencers and celebrities, pushing them to try risky diets, beauty 
+            treatments, or expensive makeup routines just to match unrealistic standards.
+            <strong><i>Mental health issues are also on the rise due to online comparisons</i></strong>
+            The constant need to 
+            appear perfect in every post causes stress, leading to an unhealthy obsession with likes and 
+            validation. Financial stress is another growing concern. Trying to keep up with expensive 
+            trends often leads to overspending and debt. Many young adults buy expensive branded 
+            clothes or gadgets just to stay relevant on social media, often stretching their budgets or 
+            falling into debt. 
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="./img/social_media_scroll/handchain.jpg" alt="Main Image"
+          style="width: 65rem;height: 35rem;border-radius: 2rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);">
+      </div>
+    </div>
+
+
+
+    <!-- Bottom Section -->
+    <div class="content">
+        <div class="text">
+          <h2>The Addiction to Scrolling</h2>
+          <p>Youngsters spend an average of
+              <strong>3 to 4 hours daily</strong>
+              scrolling through social media feeds 
+              without realizing how much time is wasted on unwanted content. Endless scrolling keeps 
+              them glued to their screens, consuming content that adds little value to their personal growth 
+              or well-being.
+          </p>
+        <ul class="blog-list">
+          <li>
+            <strong>The algorithm-driven feeds</strong>  
+            of platforms like Instagram and YouTube create a cycle 
+            of addiction by suggesting similar posts, making it hard to stop. This often leads to 
+            binge-watching videos, reading memes, or jumping from one influencer’s page to 
+            another, all while losing track of time. 
+          </li>
+          <li>
+            <strong>Notifications and constant updates</strong>  
+            keep users engaged, creating a habit of checking 
+            phones frequently, even during work or study hours. This distraction reduces focus 
+            and productivity, leaving less time for meaningful activities like reading, exercising, 
+            or spending time with family and friends.  
+          </li>
+          <li>
+            Unconsciously, youngsters may start comparing their lives with influencers, leading to 
+            dissatisfaction and anxiety. Over time, this addiction to virtual approval can result in 
+            detachment from real-life relationships and hobbies.  
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="text">
+        <h2>The Shopping Frenzy </h2>
+        <p>Girls, in particular, are often influenced by social media promotions to buy cosmetics, 
+            dresses, and personal care items. Day-to-day household essentials and decorative items are 
+            also marketed heavily online. Promotions create a sense of urgency with discounts and deals, 
+            encouraging impulsive buying, even when these items are available at lower prices on e-
+            commerce platforms or physical stores. This behaviour is further amplified through tactics 
+            like limited-time offers, where influencers highlight flash sales or 'only a few pieces left' to 
+            create urgency. Followers feel compelled to buy immediately without comparing 
+            prices.Unboxing videos use stylish packaging and attractive product displays to tempt 
+            viewers to purchase items, aiming to recreate the influencer’s experience.  </p>
+        <p>While influencers showcase the latest trends, it’s important to recognize the tactics involved, 
+            making buyers feel they need these items to match the 'ideal' lifestyle portrayed online.  </p>
+        <br>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="content">
+        <div class="text">
+        <h2>Ways to Invest in Yourself Beyond Social Media:</h2>
+        <ol class="blog-list">
+          <li>
+            <strong>Curate Your Feed Wisely : </strong>  
+            By following accounts that promote authenticity and 
+            positivity. Profiles that share unfiltered images and stories about self-growth can help 
+            develop a healthier mindset.  
+          </li>
+          <li>
+            <strong>Limit Screen Time : </strong>  
+            To stay grounded in reality. Taking breaks from social media 
+            and engaging in offline activities like painting, journaling, or hiking can help balance 
+            virtual and real-life experiences. 
+          </li>
+          <li>
+            <strong>Focus on Self-Growth : </strong>  
+            Invest in hobbies, learning new skills, and spending time 
+            with real friends. Joining local communities, workshops, or volunteering groups can 
+            create meaningful experiences and boost self-esteem. 
+          </li>
+          <li>
+            <strong>Question What You See : </strong>  
+            By asking whether a post reflects reality or is staged. 
+            Many travel influencers Photoshop scenic backdrops or post old vacation pictures to 
+            create illusions of constant travel. 
+          </li>
+          <li>
+            <strong>Shop Smart : </strong>  By comparing prices online and offline before making purchases. Many 
+            products have budget-friendly alternatives that offer similar quality. Instead of falling 
+            for expensive trends, prioritize needs over wants. 
+          </li>
+          <li>
+            <strong>Spread Awareness : </strong>  Share your own unfiltered experiences to inspire others to 
+            embrace their true selves. Many influencers now focus on promoting self-love, 
+            breaking stereotypes, and talking openly about their struggles to inspire authenticity. 
+          </li>
+        </ol>
+      </div>
+    </div>
+    
+    
+    
+
+    <div class="content">
+      <h2>Conclusion</h2>
+      <p>Social media has transformed the way we perceive beauty, success, and 
+        happiness, but it’s important to peel back the layers and see the truth behind the screens. By 
+        understanding the illusions created through editing, promotions, and trends, we can make 
+        conscious choices to focus on authenticity and self-growth. Instead of chasing virtual 
+        perfection, let’s prioritize real-life connections, personal development, and mindful living. 
+        True happiness lies beyond the filters.</p>
+    </div>
+
+    
+  </div>
+
+  <!-- Footer -->
+  <div class="footer" style="position: relative;bottom: 2rem;">
+    @talktomoon 🌙
+  </div>
+
+</body>
+</html>
